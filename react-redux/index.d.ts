@@ -6,7 +6,7 @@
 import * as React from 'react';
 import * as Redux from 'redux';
 
-type ComponentClass<P> = React.ComponentClass<P>;
+type ComponentClass<P, S> = React.ComponentClass<P>;
 type StatelessComponent<P> = React.StatelessComponent<P>;
 type ReactNode = React.ReactNode;
 type Store<S> = Redux.Store<S>;
@@ -14,7 +14,7 @@ type Dispatch<S> = Redux.Dispatch<S>;
 type ActionCreator<A> = Redux.ActionCreator<A>;
 
 interface ComponentDecorator<TOriginalProps, TOwnProps> {
-    (component: ComponentClass<TOriginalProps> | StatelessComponent<TOriginalProps>): ComponentClass<TOwnProps>;
+    (component: ComponentClass<TOriginalProps, any> | StatelessComponent<TOriginalProps>): ComponentClass<TOwnProps, any>;
 }
 
 /**
@@ -23,7 +23,7 @@ interface ComponentDecorator<TOriginalProps, TOwnProps> {
  * Can't use the above decorator because it would default the type to {}
  */
 export interface InferableComponentDecorator {
-    <P, TComponentConstruct extends (ComponentClass<P> | StatelessComponent<P>)>(component: TComponentConstruct): TComponentConstruct;
+    <P, TComponentConstruct extends (ComponentClass<P, any> | StatelessComponent<P>)>(component: TComponentConstruct): TComponentConstruct;
 }
 
 /**
